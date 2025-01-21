@@ -1,0 +1,500 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#status {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+#status.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+#status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+#status.info {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.model-description {
+    margin: 10px 0;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Transcript styles */
+.transcript-block {
+    line-height: 1.6;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    margin: 1rem 0;
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    cursor: text;
+    color: #212529;
+    position: relative;
+    z-index: 1;
+}
+
+.word-token {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+    cursor: text;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+.word-token:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.word-selected {
+    background-color: rgba(0, 123, 255, 0.15) !important;
+}
+
+/* Style for selected text */
+.transcript-block ::selection {
+    background-color: rgba(0, 123, 255, 0.2);
+    color: #000;
+}
+
+#selectedRange {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #495057;
+    border-left: 4px solid #007bff;
+}
+
+.clip-controls {
+    margin: 1rem 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+#createClipBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #6c757d;
+}
+
+#createClipBtn:not(:disabled) {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+}
+
+#createClipBtn:not(:disabled):hover {
+    background-color: #218838;
+}
+
+#clipPreview {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.clip-button-hidden {
+    display: none !important;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.clip-button-visible {
+    display: inline-flex !important;
+    position: absolute;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10000;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    pointer-events: auto;
+    white-space: nowrap;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.clip-button-visible:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.clip-button-visible:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Ensure the button is always on top and visible */
+#floatingClipBtn {
+    z-index: 10000;
+    pointer-events: auto !important;
+    transform: translateY(-50%);
+}
+
+/* Footer clip button styles */
+#createClipBtn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#createClipBtn:not(:disabled) {
+    cursor: pointer;
+}
+
+#createClipBtn:not(:disabled):hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#createClipBtn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Ensure proper stacking context */
+#transcriptContainer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove old styles */
+.floating-clip-button,
+.floating-clip-button.hidden {
+    display: none !important;
+}
+
+#appContainer {
+    display: flex;
+    gap: 2rem;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: #f5f5f5;
+}
+
+#mainContent {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.clips-panel {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-top: 1rem;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.clips-panel h2 {
+    margin: 0;
+    color: #212529;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.clip-status {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.clip-status.success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.clip-status.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.clip-status.info {
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    color: #004085;
+}
+
+.clips-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.clip-item {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.clip-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.clip-thumbnail {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+    background: #f8f9fa;
+}
+
+.clip-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.clip-details h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: #212529;
+}
+
+.clip-details p {
+    margin: 0 0 1rem;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.clip-progress {
+    background: #e9ecef;
+    border-radius: 0.25rem;
+    height: 0.75rem;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.clip-progress-bar {
+    background: linear-gradient(45deg, #007bff 25%, #0056b3 25%, #0056b3 50%, #007bff 50%, #007bff 75%, #0056b3 75%);
+    background-size: 40px 40px;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    from { background-position: 40px 0; }
+    to { background-position: 0 0; }
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.clip-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.clip-actions a {
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.download-link {
+    background: #28a745;
+    color: #fff;
+}
+
+.download-link:hover {
+    background: #218838;
+}
+
+.preview-link {
+    background: #6c757d;
+    color: #fff;
+}
+
+.preview-link:hover {
+    background: #5a6268;
+}
+
+.clip-status {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.clip-status.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.clip-status.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.clip-status.info {
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    color: #004085;
+}
+
+.word-selected {
+    background-color: rgba(0, 123, 255, 0.15);
+    border-radius: 2px;
+}
+
+/* Ensure the clips panel is responsive */
+@media (max-width: 768px) {
+    .clip-item {
+        flex-direction: column;
+    }
+    
+    .clip-thumbnail {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .clip-actions {
+        flex-direction: column;
+    }
+    
+    .clip-actions a {
+        width: 100%;
+        text-align: center;
+    }
+} 

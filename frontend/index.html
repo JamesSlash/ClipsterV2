@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clipster - Live YouTube Transcription & Clipping</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="appContainer">
+        <!-- Left side: Main content -->
+        <div id="mainContent">
+            <div id="status">Disconnected</div>
+
+            <div class="input-group">
+                <input type="text" id="youtubeUrl" placeholder="Enter YouTube live URL (e.g., https://www.youtube.com/live/...)">
+                <button id="startBtn">Start</button>
+                <button id="stopBtn" disabled>Stop</button>
+            </div>
+
+            <div class="input-group">
+                <select id="modelSelect">
+                    <option value="base">Base Model</option>
+                </select>
+                <select id="languageSelect">
+                    <option value="auto">Auto-detect language</option>
+                </select>
+            </div>
+
+            <div class="model-description"></div>
+            <div id="selectedRange"></div>
+
+            <div id="transcriptContainer">
+                <h2>Live Transcript</h2>
+                <div id="transcriptBlock" class="transcript-block"></div>
+            </div>
+
+            <div class="clip-controls">
+                <select id="clipQuality">
+                    <option value="high">High Quality</option>
+                    <option value="medium">Medium Quality</option>
+                    <option value="low">Low Quality</option>
+                </select>
+                <button id="createClipBtn" disabled>Create Clip</button>
+            </div>
+        </div>
+
+        <!-- Right side: Clips panel -->
+        <div id="clipsPanel" class="clips-panel">
+            <h2>My Clips</h2>
+            <div id="clipStatus" class="clip-status"></div>
+            <div id="clipsContainer" class="clips-container"></div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
